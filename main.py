@@ -1,4 +1,4 @@
-from question_answering import qa_main
+from question_answerer import qa_main
 from question_generator import qg_main
 
 def generate_questions(wiki_text_block, no_of_questions):
