@@ -8,7 +8,7 @@ from util import cosine_similarity
 interface for accessing util functions.
 """
 
-def coref(text):
+def get_coref(text):
     """
     returns co reference resolved text
         :param text: Wiki text
@@ -32,12 +32,13 @@ def get_ner_per_token(text):
     named_entities = ner.get_ner_per_token_spacy(text)
     return named_entities
 
-def tokenize(text):
+def get_tokenized_form(text):
     """
     docstring here
         :param text: 
     """
-    pass
+    tokens = tokenization.tokenize_text(text)
+    return tokens
 
 def sentenize(text):
     sentences = tokenization.get_sentences(text)
@@ -49,21 +50,21 @@ def get_cosine_similarity(question, sentence):
     return cosine_sim_score
 
 
-def lemmatize(text):
+def get_lemmatize_form(text):
     """
     docstring here
         :param text: 
     """
     pass
 
-def stem(text):
+def get_stem_form(text):
     """
     docstring here
         :param text: 
     """
     pass
 
-def constituency_parse(text):
+def get_constituency_parse(text):
     """
     docstring here
         :param text: 
@@ -80,4 +81,4 @@ def get_dependency_parse(text):
 
 
 if __name__ == '__main__':
-    coref("My sister has a dog. She loves him.")
+    get_coref("My sister has a dog. She loves him.")

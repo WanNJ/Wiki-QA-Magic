@@ -26,8 +26,9 @@ def get_answer(wiki_text_block, question):
         # 3. Wh question - {When, Where, Why,}
     # 4 get answers based on the question type 
 
+    print(question)
     # Step 1
-    coref_text = util_service.coref(wiki_text_block)
+    coref_text = util_service.get_coref(wiki_text_block)
 
     # Step 2
     localized_statement = sentence_localizer.get_localized_statement(question, coref_text)
