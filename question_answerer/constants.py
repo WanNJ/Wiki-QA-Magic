@@ -1,0 +1,4 @@
+UNABLE_TO_ANSWER = "Unable to answer the question"
+WH_QUESTION = "WH"
+EITHER_OR_QUESTION = "EO"
+BINARY_QUESTION = "BI"
