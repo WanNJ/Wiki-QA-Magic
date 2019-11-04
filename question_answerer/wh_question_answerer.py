@@ -12,6 +12,7 @@ def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
     """
+    
     # print(question)
     # print(localized_statement)
     localized_dep_parse = util_service.get_dependency_parse(localized_statement)
