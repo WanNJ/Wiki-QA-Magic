@@ -1,28 +1,38 @@
-from util import coref_resolution, dependency_parse as dep_parse, ner as NER, constituency_parse, tokenization
- 
+from util import coref_resolution
+from util import tokenization
+from util import ner
+from util import dependency_parse as dep_parse
+from util import cosine_similarity
 
 """
-interface for accessing util functions.ß
+interface for accessing util functions.
 """
 
-def coref(text):
+def get_coref(text):
     """
     returns co reference resolved text
         :param text: Wiki text
     """
     coref_text = coref_resolution.resolve_spacy(text)
-    #print(coref_text)
     return coref_text
 
-def ner(text):
+def get_ner(text):
     """
     docstring here
         :param text: 
     """
-    named_entities = NER.get_ner(text)
+    named_entities = ner.get_ner_spacy(text)
     return named_entities
 
-def tokenize(text):
+def get_ner_per_token(text):
+    """
+    docstring here
+        :param text: 
+    """
+    named_entities = ner.get_ner_per_token_spacy(text)
+    return named_entities
+
+def get_tokenized_form(text):
     """
     docstring here
         :param text: 
@@ -31,46 +41,51 @@ def tokenize(text):
     return tokens
 
 def sentenize(text):
-
     sentences = tokenization.get_sentences(text)
     return sentences
 
 
-def lemmatize(text):
-    """
-    docstring here
-        :param text: 
-    """
-    pass
-    #lemmatized_text = tokenization.tokenize_text(text)
+def get_cosine_similarity(question, sentence):
+    cosine_sim_score = cosine_similarity.get_cosine_similarity_spacy(question, sentence)
+    return cosine_sim_score
 
-def stem(text):
-    """
-    docstring here
-        :param text: 
-    """
-    pass
-    #stemmed_text = 
 
-def constituency_parse(text):
+def get_lemmatize_form(text):
     """
     docstring here
         :param text: 
     """
     pass
 
-def dependency_parse(text):
+def get_stem_form(text):
     """
     docstring here
         :param text: 
     """
-    dependencies = dep_parse.get_dependency_parse_spacy(text)
-    #print(coref_text)
-    return dependencies
+    pass
+
+def get_constituency_parse(text):
+    """
+    docstring here
+        :param text: 
+    """
+    pass
+
+def get_dependency_parse(text):
+    """
+    docstring here
+        :param text: 
+    """
+    dependency_parse = dep_parse.get_dependency_parse_spacy(text)
+    return dependency_parse
+
+def get_dep_parse_tree(text):
+    """
+    Used to get the heads and children for text
+    """
+    dependency_parse_tree = dep_parse.get_dep_parse_head_children(text)
+    return dependency_parse_tree
 
 
 if __name__ == '__main__':
-    article = "This is an article about Evan Kaaret. He is 22, halfway to 23. This is to test if the program spacy will correctly found out that he refers to Evan."
-    coref("My sister has a dog. She loves him.")
-
-
+    get_coref("My sister has a dog. She loves him.")
