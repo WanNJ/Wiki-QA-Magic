@@ -1,6 +1,8 @@
 import sys
+
 sys.path.append("..")
 import util_service
+
 
 def get_answer(question, localized_statement):
     """

@@ -1,7 +1,9 @@
 import sys
+
 sys.path.append("..")
 
 import util_service
+
 
 def get_localized_statement(question, coref_text):
     sentences = util_service.sentenize(coref_text)

@@ -6,8 +6,8 @@ We need to compare the accuracy from the different tools and choose the best one
 We can do the testing manually by checking the output of different implementations.
 """
 
-#from stanfordnlp.server import CoreNLPClient
-#import os
+# from stanfordnlp.server import CoreNLPClient
+# import os
 from spacy.pipeline import DependencyParser
 import spacy
 
@@ -25,6 +25,7 @@ def get_dependency_parse_spacy(text):
         dependencies.append(token.dep_)
     return dependencies
 
+
 def get_dependency_parse_corenlp(text):
     """
     docstring here
@@ -41,6 +42,7 @@ def get_dependency_parse_corenlp(text):
     return dependency_parse
     """
     pass
+
 
 def get_dependency_parse_othertool(text):
     """
