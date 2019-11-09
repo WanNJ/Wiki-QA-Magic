@@ -11,7 +11,7 @@ We can do the testing manually by checking the output of different implementatio
 from spacy.pipeline import DependencyParser
 import spacy
 
-nlp = spacy.load("en")
+nlp = spacy.load("en_core_web_sm")
 
 
 def get_dependency_parse_spacy(text):
