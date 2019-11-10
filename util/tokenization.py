@@ -1,4 +1,3 @@
-
 """
 This file must have implementations for tokenization lemmatization and stemming
 """
@@ -11,7 +10,7 @@ This file must have implementations for tokenization lemmatization and stemming
 #nlp = English()
 
 import spacy
-nlp = spacy.load("en")
+nlp = spacy.load("en_core_web_lg")
 
 def tokenize_text(wiki_text):
     """
@@ -52,5 +51,3 @@ def get_sentences(wiki_text):
     for sentence in document.sents:
         sentences.append(sentence)
     return sentences
-
-#print(tokenize_text("This is a sentence. I am Evan."))

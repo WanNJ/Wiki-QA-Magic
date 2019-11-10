@@ -8,11 +8,8 @@ We can do the testing manually by checking the output of different implementatio
 
 import spacy
 import neuralcoref
-nlp = spacy.load('en') #en_core_web_sm
+nlp = spacy.load("en")#("en_core_web_sm")
 neuralcoref.add_to_pipe(nlp)
-
-#from stanfordnlp.server import CoreNLPClient
-#import os
 
 
 def resolve_spacy(text):
@@ -21,19 +18,10 @@ def resolve_spacy(text):
         :param text: wiki text
     """
     doc = nlp(text)
-
-    #print(doc._.coref_clusters)
-    #for cluster in doc._.coref_clusters:
-    #	print(cluster.mentions)
     return doc._.coref_resolved
 
 
 def sample_use_spacy():
     doc = nlp('My sister has a dog. She loves him.')
-    #print(doc._.coref_resolved)
+    print(doc._.coref_resolved)
     # Prints -> My sister has a dog. My sister loves a dog.
-
-
-#def 
-
-

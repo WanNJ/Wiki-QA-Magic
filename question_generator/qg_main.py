@@ -6,7 +6,6 @@ import numpy as np
 
 """
 def make_question(coref_text, tokenized_text_coref, parsing, named_entities, sentence, named_entity_index):
-
     entity = named_entities[named_entity_index][0]
     entity_type = named_entities[named_entity_index][3]
     if entity_type == "PERSON":
@@ -17,7 +16,6 @@ def make_question(coref_text, tokenized_text_coref, parsing, named_entities, sen
     start_i = named_entities[named_entity_index][1]
     end_i = named_entities[named_entity_index][2]
     new_text = sentence[0:start_i] + wh_word + sentence[end_i:len(sentence)-1] + "?"
-
     question = new_text
     return question
 """
@@ -26,7 +24,6 @@ def make_wh_question(curr_sent, ents_in_sent):
     """
     generates a wh question based a sentence and named entity.
     right now just puts a wh word in place of the named entity
-
         :param curr_sent: string representing a sentence
         :param ents_in_sent: list of a named entity, where:
             [0] is a string of the entity
@@ -73,7 +70,6 @@ def get_questions(wiki_text, no_of_questions):
     generates the questions based on the wiki text.
     Contains only business logic, WHAT to do rather than HOW to do.
     Common helper functions to be accessed from util_service module.
-
         :param wiki_text: string of a wikipedia article
         :param no_of_questions: int for number of questions
     """
@@ -87,7 +83,7 @@ def get_questions(wiki_text, no_of_questions):
     # 5. get ranking from question evaluator for generated questions
     # 6. return ranked questions
 
-    coref_text = util_service.coref(wiki_text)
+    coref_text = util_service.get_coref(wiki_text)
     sentences = util_service.sentenize(coref_text)
 
     questions = []
@@ -113,10 +109,10 @@ def get_questions(wiki_text, no_of_questions):
         if sentence_num < len(sentences):
             # For each sentence, get the entities, tokens, and parse of the sentence
             curr_sent = str(sentences[sentence_num])
-            ents_in_sent = util_service.ner(curr_sent)
-            tokenized_text_coref = util_service.tokenize(curr_sent)
+            ents_in_sent = util_service.get_ner(curr_sent)
+            tokenized_text_coref = util_service.get_tokenized_form(curr_sent)
             #tokenized_original = util_service.tokenize(wiki_text)
-            parsing = util_service.dependency_parse(curr_sent)
+            parsing = util_service.get_dependency_parse(curr_sent)
             named_ent_num = 0
             # For each entity in the sentence, make a wh question
             while named_ent_num < len(ents_in_sent):
@@ -160,7 +156,6 @@ def get_questions(wiki_text, no_of_questions):
     for i in range(no_of_questions):
         if named_entity_index < len(named_entities):
             question = make_question(coref_text, tokenized_text_coref, parsing, named_entities, sentences, named_entity_index = 0)
-
         questions.append(question)
     """
 
@@ -172,6 +167,3 @@ if __name__ == "__main__":
     #print(get_questions("This is an article about Evan Kaaret. He is 22, halfway to 23. This is to test if the program spacy will correctly found out that he refers to Evan.", 1))
     print(get_questions("President Evan is the subject of this article. He is 22, halfway to 23. This is to test if the program spacy will correctly found out that he refers to Evan.", 4))
     #print(get_questions("Who is that.", 1))
-
-
-
