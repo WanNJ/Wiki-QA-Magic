@@ -30,10 +30,11 @@ if __name__ == "__main__":
 
     # question = "What is Pittsburgh?"
     # question = "When was Pittsburgh named?"
-    question = "What is the county seat of Allegheny County?"
-    # question = "Which city is 66th-largest city in the US?"
-    # question = "Where is Pittsburgh located?"
-    # question = "Which city is located in the southwest of the state?"
+    # question = "What is the county seat of Allegheny County?"
     # question = "What is located in the southwest of the state?"
+    # question = "Where is Pittsburgh located?"
+    # question = "Which city is 66th-largest city in the US?"
+    # question = "Which city is located in the southwest of the state?"
+    question = "Who named pittsburgh?"
     ans = generate_answer(wiki_text_block, question)
     print(ans)

@@ -14,7 +14,7 @@ def localized_statement_pipeline(localized_statement):
 
 def get_what_answer(question, localized_statement):
     """
-    Currently, the answerer use the subject of the localized statement as the answer to the question.
+    Currently, the answerer use the part before ROOT of the localized statement as the answer to the question.
     TODO: Further improvement needs to be made.
     TODO: Wrong localized statement for question "What is pittsburgh?".
     :param question:
@@ -31,11 +31,16 @@ def get_what_answer(question, localized_statement):
             a_subj_head = token
 
     # Use the noun chunk as the answer instead of a single word.
-    if a_subj_head is not None:
-        for chunk in a_doc.noun_chunks:
-            if chunk.root.i == a_subj_head.i:
-                answer = chunk.text
-                break
+    # if a_subj_head is not None:
+    #     for chunk in a_doc.noun_chunks:
+    #         if chunk.root.i == a_subj_head.i:
+    #             answer = chunk.text
+    #             break
+
+    localized_dep_parse, root_idx, _ = localized_statement_pipeline(localized_statement)
+
+    if a_subj_head.i < root_idx:
+        answer = ' '.join(localized_statement.split(' ')[:root_idx])
 
     return answer
 
@@ -64,27 +69,74 @@ def get_where_answer(question, localized_statement):
 
 
 def get_who_answer(question, localized_statement):
-    pass
+    """
+    baseline who answer generator, needs to improved and tested across various test cases
+    """
+    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
+
+    for i, x in enumerate(ner_tokens):
+        if x[1] == "PERSON":
+            for chunk in a_doc.noun_chunks:
+                if x[0] in chunk.text:
+                    return chunk.text
+
+    return None
 
 
 def get_whom_answer(question, localized_statement):
-    pass
-
-
-def get_which_answer(question, localized_statement):
-    pass
+    """
+    Same logic as who question.
+    TODO: Refine the implementation.
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    return get_who_answer(question, localized_statement)
 
 
 def get_whose_answer(question, localized_statement):
-    pass
+    """
+    Same logic as who question.
+    TODO: Refine the implementation.
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    return get_who_answer(question, localized_statement)
+
+
+def get_which_answer(question, localized_statement):
+    """
+    Same logic as what question.
+    TODO: Refine the implementation.
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    return get_what_answer(question, localized_statement)
 
 
 def get_why_answer(question, localized_statement):
-    pass
+    """
+    Just use the localized statement to provide useful information.
+    TODO: Is there any better solutions?
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    return localized_statement
 
 
 def get_how_answer(question, localized_statement):
-    pass
+    """
+    Just use the localized statement to provide useful information.
+    TODO: Is there any better solutions?
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    return localized_statement
 
 
 def get_answer(question, localized_statement):
