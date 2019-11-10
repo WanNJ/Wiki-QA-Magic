@@ -10,13 +10,30 @@ We can do the testing manually by checking the output of different implementatio
 # import os
 from spacy.pipeline import DependencyParser
 import spacy
+from spacy import displacy
 
 nlp = spacy.load("en_core_web_sm")
 
 
+def get_dep_parse_tree_spacy(text):
+    """
+    Return the noun-chunks and dependency parse tree
+    :param text:
+    :return: the doc, chunks and dep-parse-tree
+    """
+    doc = nlp(text)
+    # Uncomment the following line and render the result as html to visualize the dependency diagram
+    # print(displacy.render(doc, style='dep'))
+    res = []
+    for token in doc:
+        res.append([token.text, token.i, token.dep_, token.head, [child.i for child in token.children]])
+
+    return doc, res
+
+
 def get_dependency_parse_spacy(text):
     """
-    docstring here
+    Returns the dependency parse tags of each token in the text.
         :param text: 
     """
     doc = nlp(text)

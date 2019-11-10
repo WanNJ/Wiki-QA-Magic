@@ -88,5 +88,14 @@ def get_dependency_parse(text):
     return dependency_parse
 
 
+def get_dep_parse_tree(text):
+    """
+    Nianjie added this function because the get_dependency_parse only returns the dependency tags but not relations.
+        :param text: the text that needs to be parsed.
+    """
+    dependency_parse = dep_parse.get_dep_parse_tree_spacy(text)
+    return dependency_parse
+
+
 if __name__ == '__main__':
     get_coref("My sister has a dog. She loves him.")

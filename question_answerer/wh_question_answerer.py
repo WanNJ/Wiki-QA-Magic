@@ -1,9 +1,10 @@
 import sys
+
 sys.path.append("..")
 import util_service
 
 
-def wh_answerer_pipeline(question, localized_statement):
+def localized_statement_pipeline(localized_statement):
     localized_dep_parse = util_service.get_dependency_parse(localized_statement)
     root_idx = localized_dep_parse.index("ROOT")
     ner_tokens = util_service.get_ner_per_token(localized_statement)
@@ -12,13 +13,35 @@ def wh_answerer_pipeline(question, localized_statement):
 
 
 def get_what_answer(question, localized_statement):
-    # TODO: Wrong localized statement for question "What is pittsburgh?".
-    localized_dep_parse, root_idx, ner_tokens = wh_answerer_pipeline(question, localized_statement)
-    pass
+    """
+    Currently, the answerer use the subject of the localized statement as the answer to the question.
+    TODO: Further improvement needs to be made.
+    TODO: Wrong localized statement for question "What is pittsburgh?".
+    :param question:
+    :param localized_statement:
+    :return:
+    """
+    answer = None
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
+
+    # Identify the subject of the localized statement
+    a_subj_head = None
+    for token in a_doc:
+        if token.dep_ == 'nsubj':
+            a_subj_head = token
+
+    # Use the noun chunk as the answer instead of a single word.
+    if a_subj_head is not None:
+        for chunk in a_doc.noun_chunks:
+            if chunk.root.i == a_subj_head.i:
+                answer = chunk.text
+                break
+
+    return answer
 
 
 def get_when_answer(question, localized_statement):
-    localized_dep_parse, root_idx, ner_tokens = wh_answerer_pipeline(question, localized_statement)
+    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
 
     for x in ner_tokens[root_idx:]:
         if x[1] == "DATE":
@@ -31,7 +54,7 @@ def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
     """
-    localized_dep_parse, root_idx, ner_tokens = wh_answerer_pipeline(question, localized_statement)
+    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
 
     for x in ner_tokens[root_idx:]:
         if x[1] == "GPE":
