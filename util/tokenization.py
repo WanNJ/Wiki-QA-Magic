@@ -53,5 +53,5 @@ def get_sentences(wiki_text):
     document = nlp(wiki_text)
     sentences = []
     for sentence in document.sents:
-        sentences.append(sentence)
+        sentences.append(str(sentence))
     return sentences

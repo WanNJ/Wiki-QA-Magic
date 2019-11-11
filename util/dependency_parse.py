@@ -12,8 +12,7 @@ from spacy.pipeline import DependencyParser
 import spacy
 from spacy import displacy
 
-nlp = spacy.load("en_core_web_sm")
-
+nlp = spacy.load("en_core_web_lg")
 
 def get_dep_parse_tree_spacy(text):
     """
@@ -29,7 +28,6 @@ def get_dep_parse_tree_spacy(text):
         res.append([token.text, token.i, token.dep_, token.head, [child.i for child in token.children]])
 
     return doc, res
-
 
 def get_dependency_parse_spacy(text):
     """
