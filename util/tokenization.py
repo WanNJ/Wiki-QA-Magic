@@ -2,23 +2,25 @@
 This file must have implementations for tokenization lemmatization and stemming
 """
 
-#from stanfordcorenlp import StanfordCoreNLP
-#import stanfordnlp
+# from stanfordcorenlp import StanfordCoreNLP
+# import stanfordnlp
 
-#from spacy.tokenizer import Tokenizer
-#from spacy.lang.en import English
-#nlp = English()
+# from spacy.tokenizer import Tokenizer
+# from spacy.lang.en import English
+# nlp = English()
 
 import spacy
+
 nlp = spacy.load("en_core_web_lg")
+
 
 def tokenize_text(wiki_text):
     """
     returns a list of tokens from a wikipedia article
         :param wiki_text: wikipedia article
     """
-    #tokenizer = nlp.Defaults.create_tokenizer(nlp)
-    #tokens = tokenizer(wiki_text)
+    # tokenizer = nlp.Defaults.create_tokenizer(nlp)
+    # tokens = tokenizer(wiki_text)
 
     document = nlp(wiki_text)
     tokens = []
@@ -34,12 +36,14 @@ def lemmatize_text(wiki_text):
     """
     pass
 
+
 def stem_text(wiki_text):
     """
     docstring here
         :param wiki_text: 
     """
     pass
+
 
 def get_sentences(wiki_text):
     """

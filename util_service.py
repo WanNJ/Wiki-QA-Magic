@@ -8,6 +8,7 @@ from util import cosine_similarity
 interface for accessing util functions.
 """
 
+
 def get_coref(text):
     """
     returns co reference resolved text
@@ -15,6 +16,7 @@ def get_coref(text):
     """
     coref_text = coref_resolution.resolve_spacy(text)
     return coref_text
+
 
 def get_ner(text):
     """
@@ -24,6 +26,7 @@ def get_ner(text):
     named_entities = ner.get_ner_spacy(text)
     return named_entities
 
+
 def get_ner_per_token(text):
     """
     docstring here
@@ -32,6 +35,7 @@ def get_ner_per_token(text):
     named_entities = ner.get_ner_per_token_spacy(text)
     return named_entities
 
+
 def get_tokenized_form(text):
     """
     docstring here
@@ -39,6 +43,7 @@ def get_tokenized_form(text):
     """
     tokens = tokenization.tokenize_text(text)
     return tokens
+
 
 def sentenize(text):
     sentences = tokenization.get_sentences(text)
@@ -57,12 +62,14 @@ def get_lemmatize_form(text):
     """
     pass
 
+
 def get_stem_form(text):
     """
     docstring here
         :param text: 
     """
     pass
+
 
 def get_constituency_parse(text):
     """
@@ -71,12 +78,22 @@ def get_constituency_parse(text):
     """
     pass
 
+
 def get_dependency_parse(text):
     """
     docstring here
         :param text: 
     """
     dependency_parse = dep_parse.get_dependency_parse_spacy(text)
+    return dependency_parse
+
+
+def get_dep_parse_tree(text):
+    """
+    Nianjie added this function because the get_dependency_parse only returns the dependency tags but not relations.
+        :param text: the text that needs to be parsed.
+    """
+    dependency_parse = dep_parse.get_dep_parse_tree_spacy(text)
     return dependency_parse
 
 

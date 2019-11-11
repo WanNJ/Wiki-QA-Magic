@@ -8,6 +8,7 @@ We can do the testing manually by checking the output of different implementatio
 
 import spacy
 import neuralcoref
+
 nlp = spacy.load('en_core_web_lg')
 neuralcoref.add_to_pipe(nlp)
 
