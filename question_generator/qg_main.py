@@ -76,6 +76,9 @@ def get_questions(wiki_text, no_of_questions):
     # Step 5. get ranking from question evaluator for generated questions
     # TODO:
 
+    # for q in question_list:
+    #     print(q)
+
     # Step 6. return ranked questions based on the no of questions
     question_list = postprocess.get_questions_by_no(question_list, no_of_questions)
 
@@ -88,7 +91,7 @@ def get_questions(wiki_text, no_of_questions):
 #     #print(get_questions("Who is that.", 1))
 
 if __name__ == "__main__":
-    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/Development_data/set1/a1.txt', 'r') as content_file:
+    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/set1/a1.txt', 'r') as content_file:
         wiki_text = content_file.read()
     get_questions(wiki_text, 10)
 

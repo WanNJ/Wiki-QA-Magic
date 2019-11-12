@@ -6,11 +6,11 @@ def clean_text(text):
 
         :param text: 
     """
-    try:
-        text = text.encode("ascii", errors="ignore").decode()
-    except:
-        print(f"error in parsing text {text}")
-        pass
+    # try:
+    #     text = text.encode("ascii", errors="ignore").decode()
+    # except:
+    #     print("error in parsing text - "+ text)
+    #     pass
     
     text = re.sub(r'\([^)]*\)', '', text)
     text = re.sub(r' +', ' ', text)
