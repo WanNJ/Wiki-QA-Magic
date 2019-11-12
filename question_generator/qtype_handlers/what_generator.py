@@ -12,14 +12,16 @@ def generate_question(sentence):
     ner_tokens_sentence = util_service.get_ner_per_token(sentence)
     ner_only = util_service.get_ner(sentence)
 
+    if len(ner_only) == 0:
+        return []
+
     ner_start = ner_only[0][1]
     list_of_the = ["The", "the"]
     # sentence[ner_start - 4:ner_start] looks for "the"
     if sentence[ner_start - 4 : ner_start-1] in list_of_the:
         ner_only[0][0] = "the " + ner_only[0][0]
 
-    if len(ner_only) == 0:
-        return []
+    
 
     # Finds where the is word is, then is just going to append everything after it 
     # into a question
