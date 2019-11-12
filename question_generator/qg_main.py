@@ -18,6 +18,7 @@ from question_generator.qtype_handlers import when_generator
 from question_generator.qtype_handlers import who_generator
 from question_generator.qtype_handlers import is_generator
 from question_generator.qtype_handlers import where_generator
+from question_generator.qtype_handlers import eo_generator
 
 
 
@@ -66,6 +67,8 @@ def get_questions(wiki_text, no_of_questions):
                 questions = howmany_generator.generate_question(sentence)
             elif q_type == qg_constants.WHERE_QUESTION:
                 questions = where_generator.generate_question(sentence)
+            elif q_type == qg_constants.EITHER_OR_QUESTION:
+                questions = eo_generator.generate_question(sentence)
             questions_for_sentence += questions
 
         question_list += list(set(questions_for_sentence))
