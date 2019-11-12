@@ -32,11 +32,9 @@ def get_answer(wiki_text_block, question):
 
     # Step 2
     localized_statement = sentence_localizer.get_localized_statement(question, coref_text)
-    print(localized_statement)
 
     # Step 3: identify question type
     question_type = question_type_identifier.get_question_type(question)
-    print(question_type)
     if question_type is None:
         return constants.UNABLE_TO_ANSWER
 
@@ -50,6 +48,6 @@ def get_answer(wiki_text_block, question):
         answer = binary_question_answerer.get_answer(question, localized_statement)
 
     if answer is None:
-        return None
+        return "I don't know the answer."
     else:
         return answer + "."

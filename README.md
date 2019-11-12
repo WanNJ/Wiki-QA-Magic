@@ -6,5 +6,5 @@ Install dependencies from requirements.txt
 `pip3 install -r requirements.txt`
 
 # add spacy language model  
-`python -m spacy download en`
+`python3 -m spacy download en`
 
