@@ -1,10 +1,14 @@
 import sys
-sys.path.append("..")
+sys.path.append("../..")
 import util_service
 
 from get_is_are_was_were_loc import which_acomp
 
 def generate_question(sentence):
+    """
+    Takes in a string sentence and generates a "Is" question.
+    Puts "Is the " + named entity + rest_of_sentence + "?"
+    """
 
     ner_tokens_sentence = util_service.get_ner_per_token(sentence)
     ner_only = util_service.get_ner(sentence)
@@ -53,5 +57,5 @@ def generate_question(sentence):
     return_list.append(new_question)
     return return_list
 
-# a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC")
-# print(a)
+a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC")
+print(a)
