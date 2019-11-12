@@ -21,3 +21,9 @@ def get_questions_by_no(question_list, no_of_questions):
     while len(question_list) != no_of_questions:
         question_list.append(question_list[-1])
     return question_list
+
+
+def remove_duplicates_keep_order(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
