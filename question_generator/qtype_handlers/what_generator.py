@@ -2,7 +2,7 @@ import sys
 sys.path.append("../..")
 import util_service
 
-from . get_is_are_was_were_loc import which_acomp
+from question_generator.qtype_handlers.get_is_are_was_were_loc import which_acomp
 
 def generate_question(sentence):
 

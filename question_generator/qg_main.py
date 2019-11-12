@@ -19,6 +19,7 @@ from question_generator.qtype_handlers import who_generator
 from question_generator.qtype_handlers import is_generator
 from question_generator.qtype_handlers import where_generator
 from question_generator.qtype_handlers import eo_generator
+from question_generator.qtype_handlers import is_wh_generator
 
 
 
@@ -57,8 +58,10 @@ def get_questions(wiki_text, no_of_questions):
 
         questions_for_sentence = []
         for q_type in possible_qs_types:
+            questions = []
             if q_type == qg_constants.IS_QUESTION:
                 questions = is_generator.generate_question(sentence)
+                questions = questions + is_wh_generator.generate_question(sentence)
             elif q_type == qg_constants.WHAT_QUESTION:
                 questions = what_generator.generate_question(sentence)
             elif q_type == qg_constants.WHEN_QUESTION:
@@ -77,7 +80,9 @@ def get_questions(wiki_text, no_of_questions):
     # TODO:
 
     # for q in question_list:
+    #     print("*"*10)
     #     print(q)
+    #     print("*"*10)
 
     # Step 6. return ranked questions based on the no of questions
     question_list = postprocess.get_questions_by_no(question_list, no_of_questions)
@@ -91,7 +96,7 @@ def get_questions(wiki_text, no_of_questions):
 #     #print(get_questions("Who is that.", 1))
 
 if __name__ == "__main__":
-    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/set1/a1.txt', 'r') as content_file:
+    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/set2/a1.txt', 'r') as content_file:
         wiki_text = content_file.read()
     get_questions(wiki_text, 10)
 

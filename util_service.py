@@ -3,6 +3,7 @@ from util import tokenization
 from util import ner
 from util import dependency_parse as dep_parse
 from util import cosine_similarity
+from util import pos
 
 """
 interface for accessing util functions.
@@ -104,6 +105,16 @@ def get_dep_parse_tree(text):
     """
     dependency_parse = dep_parse.get_dep_parse_tree_spacy(text)
     return dependency_parse
+
+def get_pos(text):
+    ## spacy's implementation
+    res = pos.get_pos_spacy(text)
+    return res
+
+def get_pos_tokens_only(text):
+    ## spacy's implementation
+    res = pos.get_pos_tokens_only_spacy(text)
+    return res
 
 
 if __name__ == '__main__':
