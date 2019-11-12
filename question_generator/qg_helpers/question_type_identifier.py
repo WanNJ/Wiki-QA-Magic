@@ -17,11 +17,20 @@ def get_possible_question_types(sentences):
 
         sent_tokens = util_service.get_tokenized_form(sentence)
         sent_tokens = [s.lower() for s in sent_tokens]
-        if "is" in sent_tokens:
+        if ("is" in sent_tokens
+            or "was" in sent_tokens
+            or "were" in sent_tokens
+            or "are" in sent_tokens):
             q_types.append(qg_constants.WHAT_QUESTION)
             q_types.append(qg_constants.IS_QUESTION)
         if "as a" in sentence.lower():
             q_types.append(qg_constants.WHAT_QUESTION)
+        if (("is" in sent_tokens
+            or "was" in sent_tokens
+            or "were" in sent_tokens
+            or "are" in sent_tokens)
+            and "or" in sent_tokens):
+            q_types.append(qg_constants.EITHER_OR_QUESTION)
             
         
         # util_service.get_ner_per_token(sentence)
