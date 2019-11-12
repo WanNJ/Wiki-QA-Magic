@@ -12,6 +12,12 @@ def generate_question(sentence):
     ner_tokens_sentence = util_service.get_ner_per_token(sentence)
     ner_only = util_service.get_ner(sentence)
 
+    ner_start = ner_only[0][1]
+    list_of_the = ["The", "the"]
+    # sentence[ner_start - 4:ner_start] looks for "the"
+    if sentence[ner_start - 4 : ner_start-1] in list_of_the:
+        ner_only[0][0] = "the " + ner_only[0][0]
+
     if len(ner_only) == 0:
         return []
 
@@ -24,7 +30,10 @@ def generate_question(sentence):
     flag, is_are_index = which_acomp(ner_tokens_sentence)
     if flag == "":
         return []
-    new_question = "What " + flag + "the " + ner_only[0][0] + "?"
+      
+    flag = flag.lower()
+    new_question = "What " + flag + ner_only[0][0] + "?"
+
 
     # q_dep_parse = util_service.get_dependency_parse(sentence)
     # print(q_dep_parse)
@@ -34,6 +43,7 @@ def generate_question(sentence):
     return_list.append(new_question)
     return return_list
 
-# a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC")
+# a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC.")
+# print(a)
 # # This was to see the dep parse of is, are, was, were
 # b = generate_question("Chips are tasty. Food is good. Blocks and cheese are food. I was in America. They were outside.")
