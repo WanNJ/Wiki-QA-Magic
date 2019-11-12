@@ -2,7 +2,7 @@ import sys
 sys.path.append("../..")
 import util_service
 
-from get_is_are_was_were_loc import which_acomp
+from question_generator.qtype_handlers.get_is_are_was_were_loc import which_acomp
 
 def generate_question(sentence):
 
@@ -26,10 +26,14 @@ def generate_question(sentence):
     is_are_index = -1
     # flag is a string (one of "Is ", "Are ", "Was ", or "Were ")
     # is_are_index is where this string occurs in the tokens
-    flag, is_are_index = which_acomp(ner_tokens_sentence)
-    flag = flag.lower()
 
+    flag, is_are_index = which_acomp(ner_tokens_sentence)
+    if flag == "":
+        return []
+      
+    flag = flag.lower()
     new_question = "What " + flag + ner_only[0][0] + "?"
+
 
     # q_dep_parse = util_service.get_dependency_parse(sentence)
     # print(q_dep_parse)
