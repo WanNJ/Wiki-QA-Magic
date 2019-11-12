@@ -81,7 +81,7 @@ def get_who_answer(question, localized_statement):
     a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
 
     for i, x in enumerate(ner_tokens):
-        if x[1] == "PERSON":
+        if x[1] == "PERSON" or x[1] == 'ORG':
             for chunk in a_doc.noun_chunks:
                 if x[0] in chunk.text:
                     return chunk.text
