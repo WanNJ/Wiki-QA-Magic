@@ -88,6 +88,15 @@ def get_dependency_parse(text):
     return dependency_parse
 
 
+def get_dep_parse_tree_Evan(text):
+    """
+    Used to get the heads and children for text
+    """
+    dependency_parse_tree = dep_parse.get_dep_parse_head_children(text)
+    return dependency_parse_tree
+
+
+
 def get_dep_parse_tree(text):
     """
     Nianjie added this function because the get_dependency_parse only returns the dependency tags but not relations.
@@ -99,3 +108,4 @@ def get_dep_parse_tree(text):
 
 if __name__ == '__main__':
     get_coref("My sister has a dog. She loves him.")
+

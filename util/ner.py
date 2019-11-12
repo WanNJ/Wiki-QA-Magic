@@ -4,7 +4,9 @@ This file must have at least 2 implementations for NER
 
 import spacy
 
+
 nlp = spacy.load("en_core_web_lg")
+
 
 
 def get_ner_spacy(text):
@@ -20,6 +22,7 @@ def get_ner_spacy(text):
         named_entities.append([ent.text, ent.start_char, ent.end_char, ent.label_])
 
     return named_entities
+
 
 
 def get_ner_per_token_spacy(text):

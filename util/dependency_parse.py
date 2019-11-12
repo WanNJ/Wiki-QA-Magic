@@ -6,6 +6,7 @@ We need to compare the accuracy from the different tools and choose the best one
 We can do the testing manually by checking the output of different implementations.
 """
 
+
 # from stanfordnlp.server import CoreNLPClient
 # import os
 from spacy.pipeline import DependencyParser
@@ -32,6 +33,7 @@ def get_dep_parse_tree_spacy(text):
 def get_dependency_parse_spacy(text):
     """
     Returns the dependency parse tags of each token in the text.
+
         :param text: 
     """
     doc = nlp(text)
@@ -39,6 +41,18 @@ def get_dependency_parse_spacy(text):
     for token in doc:
         dependencies.append(token.dep_)
     return dependencies
+
+
+def get_dep_parse_head_children(text):
+    doc = nlp(text)
+    heads = []
+    children = []
+    for token in doc:
+        head = token.head.text
+        child = [child for child in token.children]
+        heads.append(head)
+        children.append(child)
+    return (heads, children)
 
 
 def get_dependency_parse_corenlp(text):
@@ -65,3 +79,4 @@ def get_dependency_parse_othertool(text):
         :param wiki_text_sent: 
     """
     pass
+

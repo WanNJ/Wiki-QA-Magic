@@ -1,5 +1,6 @@
 import sys
 
+
 sys.path.append("..")
 import util_service
 
@@ -55,15 +56,19 @@ def get_when_answer(question, localized_statement):
     return None
 
 
+
 def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
     """
+
     localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
+
 
     for x in ner_tokens[root_idx:]:
         if x[1] == "GPE":
             return x[0]
+
 
     return None
 
@@ -139,6 +144,7 @@ def get_how_answer(question, localized_statement):
     return localized_statement
 
 
+
 def get_answer(question, localized_statement):
     """
     Get answers to the WH question
@@ -172,3 +178,4 @@ def get_answer(question, localized_statement):
         ans = get_how_answer(question, localized_statement)
 
     return ans
+
