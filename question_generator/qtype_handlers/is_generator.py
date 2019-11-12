@@ -12,6 +12,10 @@ def generate_question(sentence):
     ner_tokens_sentence = util_service.get_ner_per_token(sentence)
     ner_only = util_service.get_ner(sentence)
 
+    # No questions to be made without any named entities
+    if len(ner_only) == 0:
+        return []
+
     # Right now instead of this block it just adds "the " in the question later
     # This block would add "the " to the named entity if "the" is 
     # in the sentence right before where the named entity is
@@ -25,9 +29,7 @@ def generate_question(sentence):
     # print(ner_only)
     # print(ner_tokens_sentence)
 
-    # No questions to be made without any named entities
-    if len(ner_only) == 0:
-        return []
+    
 
     # Finds where the is word is, then is just going to append everything after it 
     # into a question
