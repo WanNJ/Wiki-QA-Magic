@@ -16,11 +16,11 @@ def generate_question(sentence):
     # Right now instead of this block it just adds "the " in the question later
     # This block would add "the " to the named entity if "the" is 
     # in the sentence right before where the named entity is
-    # ner_start = ner_only[0][1]
-    # list_of_the = ["The", "the"]
-    # # sentence[ner_start - 4:ner_start] looks for "the"
-    # if sentence[ner_start - 4 : ner_start-1] in list_of_the:
-    #     ner_only[0][0] = "the " + ner_only[0][0]
+    ner_start = ner_only[0][1]
+    list_of_the = ["The", "the"]
+    # sentence[ner_start - 4:ner_start] looks for "the"
+    if sentence[ner_start - 4 : ner_start-1] in list_of_the:
+        ner_only[0][0] = "the " + ner_only[0][0]
         
 
     # print(ner_only)
@@ -33,21 +33,23 @@ def generate_question(sentence):
     # Finds where the is word is, then is just going to append everything after it 
     # into a question
     is_are_index = -1
-    # flag is a string (one of "Is ", "Are ", "Was ", or "Were ")
+    # is_was_are_were is a string (one of "Is ", "Are ", "Was ", or "Were ")
     # is_are_index is where this string occurs in the tokens
-    flag, is_are_index = which_acomp(ner_tokens_sentence)
+    is_was_are_were, is_are_index = which_acomp(ner_tokens_sentence)
     
     # Could be elif here
     if len(ner_only) > 0:
-        new_question = flag
+        new_question = is_was_are_were
 
-        if ("the" in ner_only[0][0] 
-            or "The" in ner_only[0][0]):
-            new_question += ner_only[0][0] + " "
-        else:
-            new_question += "the " + ner_only[0][0] + " "
+        new_question += ner_only[0][0] + " "
 
-        for j in range(is_are_index+1, len(ner_tokens_sentence)):
+        # if ("the" in ner_only[0][0] 
+        #     or "The" in ner_only[0][0]):
+        #     new_question += ner_only[0][0] + " "
+        # else:
+        #     new_question += ner_only[0][0] + " "
+
+        for j in range(is_are_index+1, len(ner_tokens_sentence) -1): #up to -1 as the last token is "."
             new_question += ner_tokens_sentence[j][0] + " "
     new_question = new_question[0:len(new_question)-1] # removes whitespace at end
     new_question += "?"
@@ -57,5 +59,5 @@ def generate_question(sentence):
     return_list.append(new_question)
     return return_list
 
-a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC")
-print(a)
+# a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC.")
+# print(a)
