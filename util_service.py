@@ -97,7 +97,6 @@ def get_dep_parse_tree_Evan(text):
     return dependency_parse_tree
 
 
-
 def get_dep_parse_tree(text):
     """
     Nianjie added this function because the get_dependency_parse only returns the dependency tags but not relations.
@@ -106,17 +105,18 @@ def get_dep_parse_tree(text):
     dependency_parse = dep_parse.get_dep_parse_tree_spacy(text)
     return dependency_parse
 
+
 def get_pos(text):
-    ## spacy's implementation
+    # spacy's implementation
     res = pos.get_pos_spacy(text)
     return res
 
+
 def get_pos_tokens_only(text):
-    ## spacy's implementation
+    # spacy's implementation
     res = pos.get_pos_tokens_only_spacy(text)
     return res
 
 
 if __name__ == '__main__':
     get_coref("My sister has a dog. She loves him.")
-
