@@ -25,5 +25,5 @@ def resolve_spacy(text):
 
 def sample_use_spacy():
     doc = nlp('My sister has a dog. She loves him.')
-    print(doc._.coref_resolved)
+    # print(doc._.coref_resolved)
     # Prints -> My sister has a dog. My sister loves a dog.

@@ -1,7 +1,12 @@
 
-
-
 def which_acomp(ner_tokens_sentence):
+    # print(ner_tokens_sentence)
+    final_flag = ""
+    is_are_index = 0
+    is_flag = False
+    are_flag = False
+    was_flag = False
+    were_flag = False
     for i in range(len(ner_tokens_sentence)):
         if ner_tokens_sentence[i][0] == "is":
             is_are_index = i
@@ -37,7 +42,3 @@ def which_acomp(ner_tokens_sentence):
     elif was_flag: final_flag = "Was "
     elif were_flag: final_flag = "Were "
     return (final_flag, is_are_index)
-
-
-
-
