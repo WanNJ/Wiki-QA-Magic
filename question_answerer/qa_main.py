@@ -23,6 +23,7 @@ def get_answer(wiki_text_block, question):
     # 2 - find similar sentences for question, localization, 
     #     need to come up with the threshold if the answer is not present in the para
     # 3 - Find the question type
+
     #   1. YES NO {is the population of Pittsburg 10000}
     #   2. Either/or {eg - does he like x or y}
     #   3. Wh question - {When, Where, Why,}
@@ -35,19 +36,22 @@ def get_answer(wiki_text_block, question):
 
     # Step 3: identify question type
     question_type = question_type_identifier.get_question_type(question)
+
     if question_type is None:
         return constants.UNABLE_TO_ANSWER
 
     answer = None
+
     # Step 4: Generate answers based on the question type
     if question_type == constants.BINARY_QUESTION:
         answer = binary_question_answerer.get_answer(question, localized_statement)
     elif question_type == constants.WH_QUESTION:
         answer = wh_question_answerer.get_answer(question, localized_statement)
     elif question_type == constants.EITHER_OR_QUESTION:
-        answer = binary_question_answerer.get_answer(question, localized_statement)
+        answer = eo_question_answerer.get_answer(question, localized_statement)
 
     if answer is None:
         return "I don't know the answer."
     else:
         return answer + "."
+

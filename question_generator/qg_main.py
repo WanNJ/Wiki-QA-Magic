@@ -3,6 +3,7 @@ sys.path.append("..")
 import util_service
 
 import numpy as np
+
 from question_generator.qg_helpers import preprocess
 from question_generator.qg_helpers import postprocess
 from question_generator.qg_helpers import sentence_simplifier
@@ -19,6 +20,7 @@ from question_generator.qtype_handlers import is_generator
 from question_generator.qtype_handlers import where_generator
 
 
+
 def get_questions(wiki_text, no_of_questions):
     """
     generates the questions based on the wiki text.
@@ -27,6 +29,7 @@ def get_questions(wiki_text, no_of_questions):
         :param wiki_text: string of a wikipedia article
         :param no_of_questions: int for number of questions
     """
+
     question_list = []
 
     # Step 0 - remove unnecessary characters
@@ -85,3 +88,4 @@ if __name__ == "__main__":
     with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/Development_data/set1/a1.txt', 'r') as content_file:
         wiki_text = content_file.read()
     get_questions(wiki_text, 10)
+
