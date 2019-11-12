@@ -1,3 +1,4 @@
+
 import sys
 sys.path.append("..")
 import util_service
@@ -99,6 +100,7 @@ def get_answer(question, localized_statement):
 
     # return probably_the_subject + " " + new_pos_answers[possible_ans_index]
     return new_pos_answers[possible_ans_index]
+
 
 
 

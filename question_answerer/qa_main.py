@@ -6,8 +6,10 @@ from . import eo_question_answerer
 from . import sentence_localizer
 
 import sys
+
 sys.path.append("..")
 import util_service
+
 
 def get_answer(wiki_text_block, question):
     """
@@ -21,27 +23,26 @@ def get_answer(wiki_text_block, question):
     # 2 - find similar sentences for question, localization, 
     #     need to come up with the threshold if the answer is not present in the para
     # 3 - Find the question type
-        # 1. YES NO {is the population of Pittsburg 10000}
-        # 2. Either/or {eg - does he like x or y}
-        # 3. Wh question - {When, Where, Why,}
-    # 4 get answers based on the question type 
 
-    # print("Question: ", question)
+    #   1. YES NO {is the population of Pittsburg 10000}
+    #   2. Either/or {eg - does he like x or y}
+    #   3. Wh question - {When, Where, Why,}
+    # 4 get answers based on the question type
     # Step 1
     coref_text = util_service.get_coref(wiki_text_block)
 
-    # print("COREF: ", coref_text)
-
     # Step 2
     localized_statement = sentence_localizer.get_localized_statement(question, coref_text)
-    # print("Localized_statement: ", localized_statement)
+    # print(localized_statement)
 
     # Step 3: identify question type
     question_type = question_type_identifier.get_question_type(question)
-    # print("Question Type: ", question_type)
-    if question_type == None:
+    # print(question_type)
+    if question_type is None:
         return constants.UNABLE_TO_ANSWER
-    
+
+    answer = None
+
     # Step 4: Generate answers based on the question type
     if question_type == constants.BINARY_QUESTION:
         answer = binary_question_answerer.get_answer(question, localized_statement)
@@ -50,5 +51,8 @@ def get_answer(wiki_text_block, question):
     elif question_type == constants.EITHER_OR_QUESTION:
         answer = eo_question_answerer.get_answer(question, localized_statement)
 
-    return answer
+    if answer is None:
+        return None
+    else:
+        return answer + "."
 
