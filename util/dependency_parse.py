@@ -6,17 +6,34 @@ We need to compare the accuracy from the different tools and choose the best one
 We can do the testing manually by checking the output of different implementations.
 """
 
-#from stanfordnlp.server import CoreNLPClient
-#import os
+
+# from stanfordnlp.server import CoreNLPClient
+# import os
 from spacy.pipeline import DependencyParser
 import spacy
+from spacy import displacy
 
-nlp = spacy.load("en")
+nlp = spacy.load("en_core_web_lg")
 
+def get_dep_parse_tree_spacy(text):
+    """
+    Return the noun-chunks and dependency parse tree
+    :param text:
+    :return: the doc, chunks and dep-parse-tree
+    """
+    doc = nlp(text)
+    # Uncomment the following line and render the result as html to visualize the dependency diagram
+    # print(displacy.render(doc, style='dep'))
+    res = []
+    for token in doc:
+        res.append([token.text, token.i, token.dep_, token.head, [child.i for child in token.children]])
+
+    return doc, res
 
 def get_dependency_parse_spacy(text):
     """
-    docstring here
+    Returns the dependency parse tags of each token in the text.
+
         :param text: 
     """
     doc = nlp(text)
@@ -24,6 +41,19 @@ def get_dependency_parse_spacy(text):
     for token in doc:
         dependencies.append(token.dep_)
     return dependencies
+
+
+def get_dep_parse_head_children(text):
+    doc = nlp(text)
+    heads = []
+    children = []
+    for token in doc:
+        head = token.head.text
+        child = [child for child in token.children]
+        heads.append(head)
+        children.append(child)
+    return (heads, children)
+
 
 def get_dependency_parse_corenlp(text):
     """
@@ -42,9 +72,11 @@ def get_dependency_parse_corenlp(text):
     """
     pass
 
+
 def get_dependency_parse_othertool(text):
     """
     docstring here
         :param wiki_text_sent: 
     """
     pass
+
