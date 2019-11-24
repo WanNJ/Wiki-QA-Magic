@@ -13,7 +13,7 @@ sys.path.append("..")
 import util_service
 
 
-def get_answer(wiki_text_block, questions):
+def get_answers(wiki_text_block, questions):
     """
     returns the answers to questions based on the wiki text
     Contains only business logic, WHAT to do rather than HOW to do.

@@ -3,18 +3,6 @@
 import sys
 from question_answerer import qa_main
 
-
-def generate_answers(wiki_text_block, questions):
-    """
-    returns a list of answers to the questions based on the wiki text
-        :param wiki_text_block: Wikipedia text
-        :param questions: a list of questions to be answered
-    """
-    answers = []
-    answers = qa_main.get_answer(wiki_text_block, questions)
-    return answers
-
-
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: ./answer article.txt questions.txt")
@@ -31,7 +19,9 @@ if __name__ == "__main__":
 
     question_list = [q.strip() for q in questions_text]
 
-    answers = generate_answers(article_text, questions_text)
+    # answers = generate_answers(article_text, questions_text)
+    # print(question_list)
+    answers = qa_main.get_answers(article_text, question_list)
 
     for answer in answers:
         print(answer)

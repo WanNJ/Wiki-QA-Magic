@@ -22,7 +22,7 @@ def generate_answer(wiki_text_block, questions):
         :param wiki_text_block: Wikipedia text
         :param question: questions to be answered, type list
     """
-    answers = qa_main.get_answer(wiki_text_block, questions)
+    answers = qa_main.get_answers(wiki_text_block, questions)
     return answers
 
 
