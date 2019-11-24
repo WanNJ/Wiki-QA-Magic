@@ -6,13 +6,12 @@ from question_answerer import qa_main
 
 def generate_answers(wiki_text_block, questions):
     """
-    returns a list of answers to the question based on the wiki text
+    returns a list of answers to the questions based on the wiki text
         :param wiki_text_block: Wikipedia text
         :param questions: a list of questions to be answered
     """
     answers = []
-    for question in questions:
-        answers.append(qa_main.get_answer(wiki_text_block, question))
+    answers = qa_main.get_answer(wiki_text_block, questions)
     return answers
 
 

@@ -16,14 +16,14 @@ def generate_questions(wiki_text_block, no_of_questions):
     return questions
 
 
-def generate_answer(wiki_text_block, question):
+def generate_answer(wiki_text_block, questions):
     """
-    returns an answer to the question based on the wiki text
+    returns answers to the questions based on the wiki text
         :param wiki_text_block: Wikipedia text
-        :param question: question to be answered
+        :param question: questions to be answered, type list
     """
-    answer = qa_main.get_answer(wiki_text_block, question)
-    return answer
+    answers = qa_main.get_answer(wiki_text_block, questions)
+    return answers
 
 
 if __name__ == "__main__":
@@ -35,23 +35,23 @@ if __name__ == "__main__":
 
     # question = "What is county seat of Allegheny County?"
     # question = "Which city is 66th-largest city in the US?"
-    question = "Where is Pittsburgh located?"
+    question = ["Where is Pittsburgh located?"]
     # question = "Which city is located in the southwest of the state?"
     # question = "What is located in the southwest of the state?"
     ans1 = generate_answer(wiki_text_block, question)
     print("WH ANSWER: ", ans1)
 
     print("BINARY------------------------------------------------")
-    question2 = "Is Pittsburgh the county seat?"
+    question2 = ["Is Pittsburgh the county seat?"]
     ans2 = generate_answer(wiki_text_block, question2)
     print("BINARY ANSWER: ", ans2)
 
     print("EO------------------------------------------------")
-    question3 = "Is Pittsburgh a city or a state?"
+    question3 = ["Is Pittsburgh a city or a state?"]
     ans3 = generate_answer(wiki_text_block, question3)
     print("EO ANSWER: ", ans3)
 
     print("EO------------------------------------------------")
-    question3 = "Is Pittsburgh in the United States or Pennsylvania?"
+    question3 = ["Is Pittsburgh in the United States or Pennsylvania?"]
     ans3 = generate_answer(wiki_text_block, question3)
     print("EO ANSWER: ", ans3)
