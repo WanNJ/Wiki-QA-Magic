@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../..")
 import util_service
-from get_is_are_was_were_loc import which_acomp
+from . get_is_are_was_were_loc import which_acomp
 
 
 def build_sides(ner_tags, is_are_index):
@@ -93,11 +93,11 @@ def generate_question(sentence):
     return [sentence_2]
 
 
-a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC.")
-print(a)
+# a = generate_question("The Old Kingdom is most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC.")
+# print(a)
 
-b = generate_question("Andrés Iniesta Luján (Spanish pronunciation: [anˈdɾes iˈnjesta luˈxan]; born 11 May 1984) is a Spanish professional footballer who plays as a central midfielder for FC Barcelona and the Spain national team.")
-print(b)
+# b = generate_question("Andrés Iniesta Luján (Spanish pronunciation: [anˈdɾes iˈnjesta luˈxan]; born 11 May 1984) is a Spanish professional footballer who plays as a central midfielder for FC Barcelona and the Spain national team.")
+# print(b)
 
 
 # ['Is The Old Kingdom most commonly regarded as the period from the Third Dynasty through to the Sixth Dynasty 2686–2181 BC?']
