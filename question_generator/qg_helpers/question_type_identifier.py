@@ -39,7 +39,7 @@ def get_possible_question_types(sentences):
         
         # Where type
         for entry in sent_ner:
-            if entry[3] in ["LOC", "ORG"]:
+            if entry[3] in ["LOC", "ORG", "GPE"]:
                 if qg_constants.WHERE_QUESTION not in q_types:
                     q_types.append(qg_constants.WHERE_QUESTION)
 
