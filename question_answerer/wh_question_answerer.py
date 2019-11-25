@@ -1,5 +1,5 @@
 import sys
-
+import traceback
 
 sys.path.append("..")
 import util_service
@@ -40,8 +40,12 @@ def get_what_answer(question, localized_statement):
 
     localized_dep_parse, root_idx, _ = localized_statement_pipeline(localized_statement)
 
-    if a_subj_head.i < root_idx:
-        answer = ' '.join(localized_statement.split(' ')[:root_idx])
+    try:
+        if a_subj_head.i < root_idx:
+            answer = ' '.join(localized_statement.split(' ')[:root_idx])
+    except Exception as e:
+        traceback.print_exc()
+        answer = None
 
     return answer
 

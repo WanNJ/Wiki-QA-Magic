@@ -61,7 +61,10 @@ def get_answers(wiki_text_block, questions):
             answer = eo_question_answerer.get_answer(question, localized_statement)
 
         # Replace \" to empty
-        answer = str.replace(answer, '\"', '')
+        try:
+            answer = str.replace(answer, '\"', '')
+        except:
+            pass
 
         if answer is None or answer == constants.UNABLE_TO_ANSWER:
             answers.append("I don't know the answer.")
