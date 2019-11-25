@@ -6,9 +6,9 @@ from feedback_loop import fl_main
 def get_questions_by_qg_ranking(questions_dict):
     question_list = []
     question_list += questions_dict["is_wh_generator"]
+    question_list += questions_dict["when_generator"]
     question_list += questions_dict["is_generator"]
     question_list += questions_dict["what_generator"]
-    question_list += questions_dict["when_generator"]
     question_list += questions_dict["howmany_generator"]
     question_list += questions_dict["where_generator"]
     question_list += questions_dict["eo_generator"]

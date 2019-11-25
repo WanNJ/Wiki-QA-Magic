@@ -63,9 +63,10 @@ def get_cosine_similarity(question, sentence):
 def get_lemmatize_form(text):
     """
     docstring here
-        :param text: 
+        :param text:
     """
-    pass
+    tokens = tokenization.lemmatize_text(text)
+    return tokens
 
 
 def get_stem_form(text):
