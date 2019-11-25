@@ -8,6 +8,7 @@ We can do the testing manually by checking the output of different implementatio
 
 import spacy
 import neuralcoref
+import question_generator.qg_helpers.preprocess as qgpre
 
 nlp = spacy.load('en_core_web_lg')
 
@@ -27,3 +28,7 @@ def sample_use_spacy():
     doc = nlp('My sister has a dog. She loves him.')
     # print(doc._.coref_resolved)
     # Prints -> My sister has a dog. My sister loves a dog.
+
+
+def remove_title(text):
+    return qgpre.remove_titles(text)

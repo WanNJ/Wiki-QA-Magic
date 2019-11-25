@@ -10,6 +10,10 @@ interface for accessing util functions.
 """
 
 
+def remove_title(text):
+    return coref_resolution.remove_title(text)
+
+
 def get_coref(text):
     """
     returns co reference resolved text

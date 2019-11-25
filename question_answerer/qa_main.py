@@ -33,14 +33,15 @@ def get_answers(wiki_text_block, questions):
     # 4 get answers based on the question type
 
     # Step 1
-    # coref_text = util_service.get_coref(wiki_text_block)
+    clean_text = util_service.remove_title(wiki_text_block)
+    coref_text = util_service.get_coref(clean_text)
 
     # Step 2
     # loop over questions 
     answers = []
     for question in questions:
 
-        localized_statement = sentence_localizer.get_localized_statement(question, wiki_text_block).strip()
+        localized_statement = sentence_localizer.get_localized_statement(question, coref_text).strip()
         localized_statement = re.sub('\s+', ' ', localized_statement).strip()
 
         # Step 3: identify question type
@@ -58,6 +59,9 @@ def get_answers(wiki_text_block, questions):
             answer = wh_question_answerer.get_answer(question, localized_statement)
         elif question_type == constants.EITHER_OR_QUESTION:
             answer = eo_question_answerer.get_answer(question, localized_statement)
+
+        # Replace \" to empty
+        answer = str.replace(answer, '\"', '')
 
         if answer is None or answer == constants.UNABLE_TO_ANSWER:
             answers.append("I don't know the answer.")
