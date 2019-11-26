@@ -242,10 +242,12 @@ def generate_question(sentence):
 # generate_question("Some sets for the film were built in Glen Coe, Scotland, near the Clachaig Inn.")
 
 # a = generate_question("Lionel Andrés Messi was born on 24 June 1987 in Rosario, Santa Fe, the third of four children of Jorge Messi, a steel factory manager, and his wife Celia Cuccittini, who worked in a magnet manufacturing workshop.")
+
 # # print(a)
 
 # b = generate_question("The first is called the Meidum pyramid, named for its location in Egypt.")
 # # print(b)
+
 
 # generate_question("In Covent Garden one evening, he boasts to a new acquaintance, Colonel Hugh Pickering (Wilfrid Hyde-White), himself an expert in phonetics, that he could teach any person to speak in a way that he could pass them off as a duke or duchess at an embassy ball.")
 # # ("Harry Potter, now aged 13, has been spending another dissatisfying summer at Privet Drive.")

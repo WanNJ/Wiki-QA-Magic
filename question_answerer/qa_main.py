@@ -13,12 +13,13 @@ sys.path.append("..")
 import util_service
 
 
-def get_answer(wiki_text_block, question):
+def get_answers(wiki_text_block, questions):
     """
-    returns the answer to question based on the wiki text
+    returns the answers to questions based on the wiki text
     Contains only business logic, WHAT to do rather than HOW to do.
     Common helper functions to be accessed from util_service module.
         :param text: Wikipedia text
+        :questions: list of questions
     """
     # Steps
     # 1 - coref resolution
@@ -32,30 +33,41 @@ def get_answer(wiki_text_block, question):
     # 4 get answers based on the question type
 
     # Step 1
-    # coref_text = util_service.get_coref(wiki_text_block)
+    clean_text = util_service.remove_title(wiki_text_block)
+    coref_text = util_service.get_coref(clean_text)
 
     # Step 2
-    localized_statement = sentence_localizer.get_localized_statement(question, wiki_text_block).strip()
-    localized_statement = re.sub('\s+', ' ', localized_statement).strip()
+    # loop over questions 
+    answers = []
+    for question in questions:
 
-    # Step 3: identify question type
-    question_type = question_type_identifier.get_question_type(question)
+        localized_statement = sentence_localizer.get_localized_statement(question, coref_text).strip()
+        localized_statement = re.sub('\s+', ' ', localized_statement).strip()
 
-    answer = None
+        # Step 3: identify question type
+        question_type = question_type_identifier.get_question_type(question)
 
-    if question_type is None:
-        answer = constants.UNABLE_TO_ANSWER
+        answer = None
 
-    # Step 4: Generate answers based on the question type
-    if question_type == constants.BINARY_QUESTION:
-        answer = binary_question_answerer.get_answer(question, localized_statement)
-    elif question_type == constants.WH_QUESTION:
-        answer = wh_question_answerer.get_answer(question, localized_statement)
-    elif question_type == constants.EITHER_OR_QUESTION:
-        answer = eo_question_answerer.get_answer(question, localized_statement)
+        if question_type is None:
+            answer = constants.UNABLE_TO_ANSWER
 
-    if answer is None or answer == constants.UNABLE_TO_ANSWER:
-        return "I don't know the answer."
-    else:
-        return answer + "."
+        # Step 4: Generate answers based on the question type
+        if question_type == constants.BINARY_QUESTION:
+            answer = binary_question_answerer.get_answer(question, localized_statement)
+        elif question_type == constants.WH_QUESTION:
+            answer = wh_question_answerer.get_answer(question, localized_statement)
+        elif question_type == constants.EITHER_OR_QUESTION:
+            answer = eo_question_answerer.get_answer(question, localized_statement)
 
+        # Replace \" to empty
+        try:
+            answer = str.replace(answer, '\"', '')
+        except:
+            pass
+
+        if answer is None or answer == constants.UNABLE_TO_ANSWER:
+            answers.append("I don't know the answer.")
+        else:
+            answers.append(answer + ".")
+    return answers
