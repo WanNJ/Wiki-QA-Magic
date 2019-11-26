@@ -239,54 +239,54 @@ def generate_question(sentence):
 
 
 
-generate_question("Some sets for the film were built in Glen Coe, Scotland, near the Clachaig Inn.")
+# generate_question("Some sets for the film were built in Glen Coe, Scotland, near the Clachaig Inn.")
 
-a = generate_question("Lionel Andrés Messi was born on 24 June 1987 in Rosario, Santa Fe, the third of four children of Jorge Messi, a steel factory manager, and his wife Celia Cuccittini, who worked in a magnet manufacturing workshop.")
-# print(a)
+# a = generate_question("Lionel Andrés Messi was born on 24 June 1987 in Rosario, Santa Fe, the third of four children of Jorge Messi, a steel factory manager, and his wife Celia Cuccittini, who worked in a magnet manufacturing workshop.")
+# # print(a)
 
-b = generate_question("The first is called the Meidum pyramid, named for its location in Egypt.")
-# print(b)
+# b = generate_question("The first is called the Meidum pyramid, named for its location in Egypt.")
+# # print(b)
 
-generate_question("In Covent Garden one evening, he boasts to a new acquaintance, Colonel Hugh Pickering (Wilfrid Hyde-White), himself an expert in phonetics, that he could teach any person to speak in a way that he could pass them off as a duke or duchess at an embassy ball.")
-# ("Harry Potter, now aged 13, has been spending another dissatisfying summer at Privet Drive.")
-generate_question("Growing up in Nacogdoches, Texas, Dempsey played for one of the top youth soccer clubs in the state, the Dallas Texans, before playing for Furman University's men's soccer team.")
-# ("The trio are returning to Hogwarts for the school year on the Hogwarts Express when dementors suddenly board the train, searching for Sirius.")
+# generate_question("In Covent Garden one evening, he boasts to a new acquaintance, Colonel Hugh Pickering (Wilfrid Hyde-White), himself an expert in phonetics, that he could teach any person to speak in a way that he could pass them off as a duke or duchess at an embassy ball.")
+# # ("Harry Potter, now aged 13, has been spending another dissatisfying summer at Privet Drive.")
+# generate_question("Growing up in Nacogdoches, Texas, Dempsey played for one of the top youth soccer clubs in the state, the Dallas Texans, before playing for Furman University's men's soccer team.")
+# # ("The trio are returning to Hogwarts for the school year on the Hogwarts Express when dementors suddenly board the train, searching for Sirius.")
 
-generate_question("Donovan was born on March 4, 1982, in Ontario, California, to Donna Kenney-Cash, a special education teacher, and Tim Donovan, a semi-professional ice hockey player originally from Canada, which makes Donovan a Canadian citizen by descent.")
-# generate_question("The brightest star in Gemini is Pollux, and the second brightest is Castor.") #[['Gemini', 22, 28, 'ORG'], ['Pollux', 32, 38, 'GPE'], ['second', 48, 54, 'ORDINAL']]
-# generate_question("Python was conceived in the late 1980s, and its implementation was started in December 1989 by Guido van Rossum at CWI in the Netherlands as a successor to the ABC language (itself inspired by SETL) capable of exception handling and interfacing with the Amoeba operating system.")
+# generate_question("Donovan was born on March 4, 1982, in Ontario, California, to Donna Kenney-Cash, a special education teacher, and Tim Donovan, a semi-professional ice hockey player originally from Canada, which makes Donovan a Canadian citizen by descent.")
+# # generate_question("The brightest star in Gemini is Pollux, and the second brightest is Castor.") #[['Gemini', 22, 28, 'ORG'], ['Pollux', 32, 38, 'GPE'], ['second', 48, 54, 'ORDINAL']]
+# # generate_question("Python was conceived in the late 1980s, and its implementation was started in December 1989 by Guido van Rossum at CWI in the Netherlands as a successor to the ABC language (itself inspired by SETL) capable of exception handling and interfacing with the Amoeba operating system.")
 
-generate_question("Python 2.0 was released on 16 October 2000 and had many major new features, including a cycle-detecting garbage collector and support for Unicode.")
+# generate_question("Python 2.0 was released on 16 October 2000 and had many major new features, including a cycle-detecting garbage collector and support for Unicode.")
 
-generate_question("It was envisioned that Hindi would become the sole working language of the Union Government by 1965 (per directives in Article 344 (2) and Article 351), with state governments being free to function in the language of their own choice.")
+# generate_question("It was envisioned that Hindi would become the sole working language of the Union Government by 1965 (per directives in Article 344 (2) and Article 351), with state governments being free to function in the language of their own choice.")
 
-generate_question("Urdu is the official language of Pakistan, and is one of the 22 official languages of India.")
+# generate_question("Urdu is the official language of Pakistan, and is one of the 22 official languages of India.")
 
-generate_question("It is the official language of China and Taiwan, as well as one of four official languages of Singapore.")
+# generate_question("It is the official language of China and Taiwan, as well as one of four official languages of Singapore.")
 
-generate_question("English is one of the six official languages of the United Nations.")
+# generate_question("English is one of the six official languages of the United Nations.")
 
-generate_question("In his rookie season, he started 23 of 24 matches scoring seven goals.")
+# generate_question("In his rookie season, he started 23 of 24 matches scoring seven goals.")
 
-generate_question("Two weeks later, he opened the scoring in Fulham's 1–1 away draw against Wigan Athletic.")
+# generate_question("Two weeks later, he opened the scoring in Fulham's 1–1 away draw against Wigan Athletic.")
 
-generate_question("On August 31, 2012, Dempsey joined Tottenham Hotspur on a three-year contract for a fee believed to be in the region of $9 million.")
+# generate_question("On August 31, 2012, Dempsey joined Tottenham Hotspur on a three-year contract for a fee believed to be in the region of $9 million.")
 
-generate_question("On August 3, 2013, Dempsey signed with MLS club Seattle Sounders FC as a Designated Player on a four-year contract, for a transfer fee of $9 million.")
+# generate_question("On August 3, 2013, Dempsey signed with MLS club Seattle Sounders FC as a Designated Player on a four-year contract, for a transfer fee of $9 million.")
 
-generate_question("The language was initially called Oak after an oak tree that stood outside Gosling's office.")
+# generate_question("The language was initially called Oak after an oak tree that stood outside Gosling's office.")
 
-generate_question("Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants.")
+# generate_question("Dempsey was born in Nacogdoches, Texas, and, for much of his childhood, his family lived in a trailer park, where he and his siblings grew up playing soccer with Hispanic immigrants.")
 
-generate_question("He attended Furman University as a health and exercise science major and a key player for Paladins soccer.")
+# generate_question("He attended Furman University as a health and exercise science major and a key player for Paladins soccer.")
 
-generate_question("He scored the game-winning goal in the Eastern Conference Final on his way to an appearance in the MLS Cup Final.")
+# generate_question("He scored the game-winning goal in the Eastern Conference Final on his way to an appearance in the MLS Cup Final.")
 
-generate_question("Before moving to Fulham, Dempsey went for a trial at ŁKS Łomża where the coach sent him to Fulham.")
+# generate_question("Before moving to Fulham, Dempsey went for a trial at ŁKS Łomża where the coach sent him to Fulham.")
 
-generate_question("On September 18, 2010, he scored an equalizing goal on 56 minutes with a header against Blackburn Rovers at Ewood Park in the 1–1 draw to continue Fulham's unbeaten record in the Barclays Premier League.")
+# generate_question("On September 18, 2010, he scored an equalizing goal on 56 minutes with a header against Blackburn Rovers at Ewood Park in the 1–1 draw to continue Fulham's unbeaten record in the Barclays Premier League.")
 
-generate_question("In the FA Cup 3rd round he scored a double against Coventry City.")
+# generate_question("In the FA Cup 3rd round he scored a double against Coventry City.")
 
 # "It is one of the six official languages of the United Nations."
 # "Is it one of the six official languages of the United Nations."
