@@ -38,6 +38,11 @@ def lemmatize_text(wiki_text):
     docstring here
         :param wiki_text: 
     """
+    document = nlp(wiki_text)
+    tokens = []
+    for token in document:
+        tokens.append(token.lemma_)
+    return tokens
     pass
 
 
