@@ -50,6 +50,14 @@ def is_correct_answer(ground_truth, predicted_answers):
     return False
 
 
+def is_partial_correct_answer(ground_truth, predicted_answers):
+    ground_truth = [a.lower().strip() for a in ground_truth]
+    for g in ground_truth:
+        if g in predicted_answers.lower():
+            return True
+    return False
+
+
 def pretty(d, indent=0):
     for key, value in d.items():
         print('\t' * indent + str(key))
@@ -64,7 +72,9 @@ if __name__ == "__main__":
     results = {}
     correct_counter = 0
     incorrect_counter = 0
+    p_correct_counter = 0
     failed_cases = {}
+    partial_cases = {}
 
     for key, val in test_suite.items():
         predicted_answers = qa_main.get_answers(
@@ -74,6 +84,15 @@ if __name__ == "__main__":
         for i in range(0, len(correct_answers)):
             if is_correct_answer(correct_answers[i], predicted_answers[i]):
                 correct_counter += 1
+            elif is_partial_correct_answer(correct_answers[i], predicted_answers[i]):
+                p_correct_counter += 1
+                if key not in partial_cases:
+                    partial_cases[key] = {}
+                q_key = "q." + str(i + 1)
+                partial_cases[key][q_key] = {}
+                partial_cases[key][q_key]["question"] = val["questions"][i]
+                partial_cases[key][q_key]["ground_truth"] = val["answers"][i]
+                partial_cases[key][q_key]["predicted_answer"] = predicted_answers[i]
             else:
                 incorrect_counter += 1
                 if key not in failed_cases:
@@ -84,10 +103,18 @@ if __name__ == "__main__":
                 failed_cases[key][q_key]["ground_truth"] = val["answers"][i]
                 failed_cases[key][q_key]["predicted_answer"] = predicted_answers[i]
 
-    total_cases = correct_counter + incorrect_counter
-    report = {"accuracy": correct_counter / total_cases, "correct_answers": correct_counter,
-              "incorrect_answers": incorrect_counter, "test_cases": total_cases, "articles_tested": len(test_suite),
-              "failed_cases": failed_cases}
+    total_cases = correct_counter + incorrect_counter + p_correct_counter
+    report = {
+        "accuracy": correct_counter / total_cases,
+        "partial_accuracy": (correct_counter+p_correct_counter)/total_cases,
+        "correct_answers": correct_counter,
+        "partial_correct_answers": p_correct_counter,
+        "incorrect_answers": incorrect_counter,
+        "test_cases": total_cases,
+        "articles_tested": len(test_suite),
+        "partial_correct_cases": partial_cases,
+        "failed_cases": failed_cases
+    }
 
     # print(report)
     pretty(report)
