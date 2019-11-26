@@ -1,9 +1,7 @@
 import sys
 
-
 sys.path.append("..")
 import util_service
-
 
 
 def get_answer(question, localized_statement):
@@ -24,17 +22,13 @@ def get_answer(question, localized_statement):
     probably_the_subject = ner_only[0][0]
 
     subject_start_i = question.find(probably_the_subject)
-    subject_end_i = subject_start_i + len(probably_the_subject) #removes the first named entity
+    subject_end_i = subject_start_i + len(probably_the_subject)  # removes the first named entity
     q_no_sub = question[subject_end_i:len(question)]
-    ner_tokens_q_no_sub = util_service.get_ner_per_token(q_no_sub)
 
     negatives = ["no", "not", "without"]
 
     if q_no_sub in localized_statement:
-    	for negative in negatives:
-    		if negative in localized_statement:
-    			return "no"
-    return "yes"
-
-
-
+        for negative in negatives:
+            if negative in localized_statement:
+                return "No"
+    return "Yes"

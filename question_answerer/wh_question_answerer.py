@@ -31,21 +31,16 @@ def get_what_answer(question, localized_statement):
         if token.dep_ == 'nsubj':
             a_subj_head = token
 
-    # Use the noun chunk as the answer instead of a single word.
-    # if a_subj_head is not None:
-    #     for chunk in a_doc.noun_chunks:
-    #         if chunk.root.i == a_subj_head.i:
-    #             answer = chunk.text
-    #             break
-
     localized_dep_parse, root_idx, _ = localized_statement_pipeline(localized_statement)
 
-    try:
-        if a_subj_head.i < root_idx:
-            answer = ' '.join(localized_statement.split(' ')[:root_idx])
-    except Exception as e:
-        traceback.print_exc()
-        answer = None
+    if a_subj_head is None:
+        answer = localized_statement
+    else:
+        try:
+            if a_subj_head.i < root_idx:
+                answer = ' '.join(localized_statement.split(' ')[:root_idx])
+        except Exception:
+            answer = None
 
     return answer
 
@@ -60,7 +55,6 @@ def get_when_answer(question, localized_statement):
     return None
 
 
-
 def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
@@ -68,11 +62,9 @@ def get_where_answer(question, localized_statement):
 
     localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
 
-
     for x in ner_tokens[root_idx:]:
         if x[1] == "GPE":
             return x[0]
-
 
     return None
 
@@ -148,7 +140,6 @@ def get_how_answer(question, localized_statement):
     return localized_statement
 
 
-
 def get_answer(question, localized_statement):
     """
     Get answers to the WH question
@@ -182,4 +173,3 @@ def get_answer(question, localized_statement):
         ans = get_how_answer(question, localized_statement)
 
     return ans
-

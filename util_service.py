@@ -56,7 +56,11 @@ def sentenize(text):
 
 
 def get_cosine_similarity(question, sentence):
-    cosine_sim_score = cosine_similarity.get_cosine_similarity_spacy(question, sentence)
+    try:
+        cosine_sim_score = cosine_similarity.get_cosine_similarity_spacy(question, sentence)
+    except:
+        cosine_sim_score = 0
+
     return cosine_sim_score
 
 
