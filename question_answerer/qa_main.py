@@ -6,6 +6,7 @@ from . import binary_question_answerer
 from . import wh_question_answerer
 from . import eo_question_answerer
 from . import sentence_localizer
+from . import do_question_answerer
 
 import sys
 
@@ -13,12 +14,13 @@ sys.path.append("..")
 import util_service
 
 
-def get_answer(wiki_text_block, question):
+def get_answers(wiki_text_block, questions):
     """
-    returns the answer to question based on the wiki text
+    returns the answers to questions based on the wiki text
     Contains only business logic, WHAT to do rather than HOW to do.
     Common helper functions to be accessed from util_service module.
-        :param text: Wikipedia text
+        :param wiki_text_block: Wikipedia text
+        :questions: list of questions
     """
     # Steps
     # 1 - coref resolution
@@ -26,36 +28,62 @@ def get_answer(wiki_text_block, question):
     #     need to come up with the threshold if the answer is not present in the para
     # 3 - Find the question type
 
-    #   1. YES NO {is the population of Pittsburg 10000}
+    #   1. YES NO {is the population of Pittsburgh 10000}
     #   2. Either/or {eg - does he like x or y}
     #   3. Wh question - {When, Where, Why,}
     # 4 get answers based on the question type
 
     # Step 1
-    # coref_text = util_service.get_coref(wiki_text_block)
+    clean_text = util_service.remove_title(wiki_text_block)
+    coref_text = util_service.get_coref(clean_text)
 
     # Step 2
-    localized_statement = sentence_localizer.get_localized_statement(question, wiki_text_block).strip()
-    localized_statement = re.sub('\s+', ' ', localized_statement).strip()
+    # loop over questions 
+    answers = []
+    for question in questions:
 
-    # Step 3: identify question type
-    question_type = question_type_identifier.get_question_type(question)
+        localized_statement = sentence_localizer.get_localized_statement(question, coref_text).strip()
+        localized_statement = re.sub('\s+', ' ', localized_statement).strip()
 
-    answer = None
+        # Step 3: identify question type
+        question_type = question_type_identifier.get_question_type(question)
 
-    if question_type is None:
-        answer = constants.UNABLE_TO_ANSWER
+        answer = None
 
-    # Step 4: Generate answers based on the question type
-    if question_type == constants.BINARY_QUESTION:
-        answer = binary_question_answerer.get_answer(question, localized_statement)
-    elif question_type == constants.WH_QUESTION:
-        answer = wh_question_answerer.get_answer(question, localized_statement)
-    elif question_type == constants.EITHER_OR_QUESTION:
-        answer = eo_question_answerer.get_answer(question, localized_statement)
+        if question_type is None:
+            answer = constants.UNABLE_TO_ANSWER
 
-    if answer is None or answer == constants.UNABLE_TO_ANSWER:
-        return "I don't know the answer."
-    else:
-        return answer + "."
+        # Step 4: Generate answers based on the question type
+        try:
+            if question_type == constants.BINARY_QUESTION:
+                answer = binary_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.WH_QUESTION:
+                answer = wh_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.EITHER_OR_QUESTION:
+                answer = eo_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.DO_QUESTION:
+                answer = do_question_answerer.get_answer(question, localized_statement)
+        except:
+            answer = None
 
+        try:
+            if answer:
+                # Replace " to empty
+                answer = str.replace(answer, '\"', '')
+        except:
+            pass
+
+        if answer is None or answer == constants.UNABLE_TO_ANSWER:
+            if localized_statement:
+                # Return the entire localized statement(if exists) directly if unable to identify the question type
+                answers.append(localized_statement)
+            else:
+                # If no statement can even be identified, return "I don't know the answer."
+                answers.append("I don't know the answer.")
+        else:
+            # Make sure the answer ends in a period
+            if not answer.endswith('.'):
+                answer = answer + '.'
+            answers.append(answer.capitalize())
+
+    return answers

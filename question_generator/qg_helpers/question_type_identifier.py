@@ -28,8 +28,7 @@ def get_possible_question_types(sentences):
         if (("is" in sent_tokens
             or "was" in sent_tokens
             or "were" in sent_tokens
-            or "are" in sent_tokens)
-            and "or" in sent_tokens):
+            or "are" in sent_tokens)):
             q_types.append(qg_constants.EITHER_OR_QUESTION)
             
         
@@ -39,7 +38,7 @@ def get_possible_question_types(sentences):
         
         # Where type
         for entry in sent_ner:
-            if entry[3] in ["LOC", "ORG"]:
+            if entry[3] in ["LOC", "ORG", "GPE"]:
                 if qg_constants.WHERE_QUESTION not in q_types:
                     q_types.append(qg_constants.WHERE_QUESTION)
 

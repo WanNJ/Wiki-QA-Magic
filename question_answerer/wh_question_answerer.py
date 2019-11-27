@@ -1,5 +1,5 @@
 import sys
-
+import traceback
 
 sys.path.append("..")
 import util_service
@@ -31,44 +31,43 @@ def get_what_answer(question, localized_statement):
         if token.dep_ == 'nsubj':
             a_subj_head = token
 
-    # Use the noun chunk as the answer instead of a single word.
-    # if a_subj_head is not None:
-    #     for chunk in a_doc.noun_chunks:
-    #         if chunk.root.i == a_subj_head.i:
-    #             answer = chunk.text
-    #             break
-
     localized_dep_parse, root_idx, _ = localized_statement_pipeline(localized_statement)
 
-    if a_subj_head.i < root_idx:
-        answer = ' '.join(localized_statement.split(' ')[:root_idx])
+    if a_subj_head is None:
+        answer = localized_statement
+    else:
+        try:
+            if a_subj_head.i < root_idx:
+                answer = ' '.join(localized_statement.split(' ')[:root_idx])
+        except Exception:
+            answer = None
 
     return answer
 
 
 def get_when_answer(question, localized_statement):
-    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
 
-    for x in ner_tokens[root_idx:]:
-        if x[1] == "DATE":
-            return x[0]
+    for token in a_doc:
+        if token.ent_type_ == "DATE":
+            for chunk in a_doc.noun_chunks:
+                if chunk.root.i == token.i:
+                    return chunk.text
 
     return None
-
 
 
 def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
     """
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
 
-    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
-
-
-    for x in ner_tokens[root_idx:]:
-        if x[1] == "GPE":
-            return x[0]
-
+    for token in a_doc:
+        if token.ent_type_ == "GPE":
+            for chunk in a_doc.noun_chunks:
+                if chunk.root.i == token.i:
+                    return chunk.text
 
     return None
 
@@ -144,7 +143,6 @@ def get_how_answer(question, localized_statement):
     return localized_statement
 
 
-
 def get_answer(question, localized_statement):
     """
     Get answers to the WH question
@@ -178,4 +176,3 @@ def get_answer(question, localized_statement):
         ans = get_how_answer(question, localized_statement)
 
     return ans
-

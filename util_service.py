@@ -10,6 +10,10 @@ interface for accessing util functions.
 """
 
 
+def remove_title(text):
+    return coref_resolution.remove_title(text)
+
+
 def get_coref(text):
     """
     returns co reference resolved text
@@ -52,16 +56,21 @@ def sentenize(text):
 
 
 def get_cosine_similarity(question, sentence):
-    cosine_sim_score = cosine_similarity.get_cosine_similarity_spacy(question, sentence)
+    try:
+        cosine_sim_score = cosine_similarity.get_cosine_similarity_spacy(question, sentence)
+    except:
+        cosine_sim_score = 0
+
     return cosine_sim_score
 
 
 def get_lemmatize_form(text):
     """
     docstring here
-        :param text: 
+        :param text:
     """
-    pass
+    tokens = tokenization.lemmatize_text(text)
+    return tokens
 
 
 def get_stem_form(text):
