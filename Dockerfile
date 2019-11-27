@@ -10,6 +10,8 @@ ADD . /Wiki-QA-Magic
 # Specify the work dir
 WORKDIR /Wiki-QA-Magic
 
+ENV SPACY_WARNING_IGNORE=W008
+
 # Install packages 
 RUN apt-get -y update && \
     apt-get -y upgrade && \
