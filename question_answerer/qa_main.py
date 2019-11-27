@@ -54,14 +54,17 @@ def get_answers(wiki_text_block, questions):
             answer = constants.UNABLE_TO_ANSWER
 
         # Step 4: Generate answers based on the question type
-        if question_type == constants.BINARY_QUESTION:
-            answer = binary_question_answerer.get_answer(question, localized_statement)
-        elif question_type == constants.WH_QUESTION:
-            answer = wh_question_answerer.get_answer(question, localized_statement)
-        elif question_type == constants.EITHER_OR_QUESTION:
-            answer = eo_question_answerer.get_answer(question, localized_statement)
-        elif question_type == constants.DO_QUESTION:
-            answer = do_question_answerer.get_answer(question, localized_statement)
+        try:
+            if question_type == constants.BINARY_QUESTION:
+                answer = binary_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.WH_QUESTION:
+                answer = wh_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.EITHER_OR_QUESTION:
+                answer = eo_question_answerer.get_answer(question, localized_statement)
+            elif question_type == constants.DO_QUESTION:
+                answer = do_question_answerer.get_answer(question, localized_statement)
+        except:
+            answer = None
 
         try:
             if answer:

@@ -158,7 +158,7 @@ def generate_question(sentence):
         
         # print(ner_only)
         q = acomp_word + " " + ner_only[0][0] + " or " + wrong + " " + substance_of_sent
-        print(q)
+        # print(q)
         return [q]
     except:
         return []
