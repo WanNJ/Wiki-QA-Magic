@@ -44,7 +44,7 @@ def generate_question(sentence):
 
     try:
         ner_only = util_service.get_ner(sentence)
-        print(ner_only)
+        # print(ner_only)
 
         sent_tokens = sentence.split()
 
@@ -117,6 +117,7 @@ def generate_question(sentence):
             	else:
             		new_sent = new_sent + entry[0] + " "
             return [new_sent]
+        return []
 
     except:
         return []

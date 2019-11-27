@@ -68,8 +68,11 @@ def get_questions(wiki_text, no_of_questions):
         questions_for_sentence = []
         for q_type in possible_qs_types:
             questions = []
-            if q_type == qg_constants.IS_QUESTION:
-                questions = questions + is_wh_generator.generate_question(sentence)
+            try:
+                if q_type == qg_constants.IS_QUESTION:
+                    questions = questions + is_wh_generator.generate_question(sentence)
+            except:
+                questions = []
             questions_for_sentence += questions
         questions_dict["is_wh_generator"] += questions_for_sentence
 
@@ -79,25 +82,28 @@ def get_questions(wiki_text, no_of_questions):
 
         for q_type in possible_qs_types:
             questions = []
-            if q_type == qg_constants.IS_QUESTION:
-                # questions = questions + is_wh_generator.generate_question(sentence)
-                questions = is_generator.generate_question(sentence)
-                questions_dict["is_generator"] += questions
-            elif q_type == qg_constants.WHAT_QUESTION:
-                questions = what_generator.generate_question(sentence)
-                questions_dict["what_generator"] += questions
-            elif q_type == qg_constants.WHEN_QUESTION:
-                questions = when_generator.generate_question(sentence)
-                questions_dict["when_generator"] += questions
-            elif q_type == qg_constants.HOWMANY_QUESTION:
-                questions = howmany_generator.generate_question(sentence)
-                questions_dict["howmany_generator"] += questions
-            elif q_type == qg_constants.WHERE_QUESTION:
-                questions = where_generator.generate_question(sentence)
-                questions_dict["where_generator"] += questions
-            elif q_type == qg_constants.EITHER_OR_QUESTION:
-                questions = eo_generator.generate_question(sentence)
-                questions_dict["eo_generator"] += questions
+            try:
+                if q_type == qg_constants.IS_QUESTION:
+                    # questions = questions + is_wh_generator.generate_question(sentence)
+                    questions = is_generator.generate_question(sentence)
+                    questions_dict["is_generator"] += questions
+                elif q_type == qg_constants.WHAT_QUESTION:
+                    questions = what_generator.generate_question(sentence)
+                    questions_dict["what_generator"] += questions
+                elif q_type == qg_constants.WHEN_QUESTION:
+                    questions = when_generator.generate_question(sentence)
+                    questions_dict["when_generator"] += questions
+                elif q_type == qg_constants.HOWMANY_QUESTION:
+                    questions = howmany_generator.generate_question(sentence)
+                    questions_dict["howmany_generator"] += questions
+                elif q_type == qg_constants.WHERE_QUESTION:
+                    questions = where_generator.generate_question(sentence)
+                    questions_dict["where_generator"] += questions
+                elif q_type == qg_constants.EITHER_OR_QUESTION:
+                    questions = eo_generator.generate_question(sentence)
+                    questions_dict["eo_generator"] += questions
+            except:
+                pass
 
     # print("-=-==-=-==-=-=-=-=-=-=-=")
     # print(questions_dict)
@@ -113,7 +119,7 @@ def get_questions(wiki_text, no_of_questions):
 
     # for q in question_list:
     #     print("*"*10)
-    # print(q)
+        # print(q)
     #     print("*"*10)
 
     # print(question_list)
@@ -127,7 +133,7 @@ def get_questions(wiki_text, no_of_questions):
 #     #print(get_questions("Who is that.", 1))
 
 if __name__ == "__main__":
-    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/set1/a2.txt',
+    with open('/Users/gauravshegokar/Documents/CMU/FALL_2019/NLP/project/Wiki-QA-Magic/data/set3/a1.txt',
               'r') as content_file:
         wiki_text = content_file.read()
-    get_questions(wiki_text, 10)
+    get_questions(wiki_text, 20)
