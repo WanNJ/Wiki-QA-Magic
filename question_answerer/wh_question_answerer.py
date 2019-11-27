@@ -46,11 +46,13 @@ def get_what_answer(question, localized_statement):
 
 
 def get_when_answer(question, localized_statement):
-    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
 
-    for x in ner_tokens[root_idx:]:
-        if x[1] == "DATE":
-            return x[0]
+    for token in a_doc:
+        if token.ent_type_ == "DATE":
+            for chunk in a_doc.noun_chunks:
+                if chunk.root.i == token.i:
+                    return chunk.text
 
     return None
 
@@ -59,12 +61,13 @@ def get_where_answer(question, localized_statement):
     """
     baseline where answer generator, needs to improved and tested across various test cases
     """
+    a_doc, _ = util_service.get_dep_parse_tree(localized_statement)
 
-    localized_dep_parse, root_idx, ner_tokens = localized_statement_pipeline(localized_statement)
-
-    for x in ner_tokens[root_idx:]:
-        if x[1] == "GPE":
-            return x[0]
+    for token in a_doc:
+        if token.ent_type_ == "GPE":
+            for chunk in a_doc.noun_chunks:
+                if chunk.root.i == token.i:
+                    return chunk.text
 
     return None
 
