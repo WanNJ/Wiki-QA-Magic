@@ -44,6 +44,7 @@ def generate_question(sentence):
 
     try:
         ner_only = util_service.get_ner(sentence)
+        print(ner_only)
 
         sent_tokens = sentence.split()
 
@@ -60,6 +61,9 @@ def generate_question(sentence):
                 money_idx = idx
                 break
             # elif entry[3] == "QUANTITY":
+            # 	quant_flag = True
+            # 	quant_idx = idx
+            # 	break
 
             # elif entry[3] == "CARDINAL":
             # elif entry[3] == "PERCENT":
@@ -79,6 +83,41 @@ def generate_question(sentence):
                     return []
                 return [q]
 
+            # If all else fails to make a question, just replace the NE with "how many/how much"
+            how_many_list = ["MONEY", "CARDINAL", "PERCENT", "QUANTITY"]
+            ner_tags = util_service.get_ner_per_token(sentence)
+            # new_tags = ner_tags
+            # print(ner_tags)
+            new_sent = ""
+            added_q = False
+            first_quote = True
+            second_quote = False
+            for idx, entry in enumerate(ner_tags):
+            	if entry[1] in how_many_list:
+            		if not added_q:
+	            		if idx == 0:
+	            			new_sent = new_sent + "How many" + " "
+	            			added_q = True
+	            		else:
+	            			new_sent = new_sent + "how many" + " "
+	            			added_q = True
+            	elif entry[0] == ".":
+            		new_sent = new_sent[0:len(new_sent)-1] + "?"
+            	elif entry[0] == ",":
+            		new_sent = new_sent[0:len(new_sent)-1] + ", "
+            	elif entry[0] == '"':
+            		if first_quote:
+            			new_sent = new_sent + '"'
+            			second_quote = True
+            			first_quote = False
+            		elif second_quote:
+            			new_sent = new_sent[0:len(new_sent)-1] + '"' + " "
+            			second_quote = False
+            			first_quote = True
+            	else:
+            		new_sent = new_sent + entry[0] + " "
+            return [new_sent]
+
     except:
         return []
     
@@ -87,18 +126,20 @@ def generate_question(sentence):
 
 
 
-# generate_question("It is the official language of China and Taiwan, as well as one of four official languages of Singapore.")
+# print(generate_question("It is the official language of China and Taiwan, as well as one of four official languages of Singapore."))
 
-# generate_question("It is one of the six official languages of the United Nations.")
+# print(generate_question("It is one of the six official languages of the United Nations."))
 
-# generate_question("In his rookie season, he started 23 of 24 matches scoring seven goals.")
+# print(generate_question("In his rookie season, he started 23 of 24 matches scoring seven goals."))
 
-# generate_question("Two weeks later, he opened the scoring in Fulham's 1–1 away draw against Wigan Athletic.")
+# print(generate_question("Two weeks later, he opened the scoring in Fulham's 1–1 away draw against Wigan Athletic."))
 
 # print(generate_question("On August 31, 2012, Dempsey joined Tottenham Hotspur on a three-year contract for a fee believed to be in the region of $9 million."))
 
 # print(generate_question("On August 3, 2013, Dempsey signed with MLS club Seattle Sounders FC as a Designated Player on a four-year contract, for a transfer fee of $9 million."))
 
+print(generate_question("One unusual feature of Barnard 68 is its vibrations, which have a period of 250,000 years."))
 
+print(generate_question("The optical companion is of magnitude 8.2."))
 
-
+print(generate_question('Evan eats "around" 12 pounds of food a day.'))
