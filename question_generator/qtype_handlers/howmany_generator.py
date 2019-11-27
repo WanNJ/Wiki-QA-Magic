@@ -138,8 +138,8 @@ def generate_question(sentence):
 
 # print(generate_question("On August 3, 2013, Dempsey signed with MLS club Seattle Sounders FC as a Designated Player on a four-year contract, for a transfer fee of $9 million."))
 
-print(generate_question("One unusual feature of Barnard 68 is its vibrations, which have a period of 250,000 years."))
+# print(generate_question("One unusual feature of Barnard 68 is its vibrations, which have a period of 250,000 years."))
 
-print(generate_question("The optical companion is of magnitude 8.2."))
+# print(generate_question("The optical companion is of magnitude 8.2."))
 
-print(generate_question('Evan eats "around" 12 pounds of food a day.'))
+# print(generate_question('Evan eats "around" 12 pounds of food a day.'))
