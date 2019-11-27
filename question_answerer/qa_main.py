@@ -81,6 +81,6 @@ def get_answers(wiki_text_block, questions):
             # Make sure the answer ends in a period
             if not answer.endswith('.'):
                 answer = answer + '.'
-            answers.append(answer)
+            answers.append(answer.capitalize())
 
     return answers
