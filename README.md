@@ -1,5 +1,5 @@
 # Wiki-QA-Magic
-Course project for CMU 11-611.
+Course project for CMU 11-611(3rd place in the course competition).
 
 # project setup
 Install dependencies from requirements.txt  
